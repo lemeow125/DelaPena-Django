@@ -10,11 +10,11 @@ class Subject(models.Model):
     course_id = models.CharField(max_length=20)
     date_added = models.DateTimeField(default=now, editable=False)
     date_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    professor_assigned = models.ManyToManyField(
+    professors = models.ManyToManyField(
         'professor.Professor', related_name='SubjectProfessor_professor_assigned', through='subjects.SubjectProfessor')
 
-    students_assigned = models.ManyToManyField(
-        'students.Student', related_name='SubjectProfessor_professor_assigned', through='subjects.SubjectStudent')
+    students = models.ManyToManyField(
+        'students.Student', related_name='SubjectProfessor_student_assigned', through='subjects.SubjectStudent')
 
     def __str__(self):
         return self.subject_name
@@ -23,10 +23,12 @@ class Subject(models.Model):
 class SubjectProfessor(models.Model):
     subject = models.ForeignKey('subjects.Subject', on_delete=models.CASCADE)
     professor_assigned = models.ForeignKey(
-        'professor.Professor', on_delete=models.SET_NULL, null=True)
+        'professor.Professor', on_delete=models.CASCADE, null=True)
+    date_joined = models.DateTimeField(default=now, editable=False)
 
 
 class SubjectStudent(models.Model):
     subject = models.ForeignKey('subjects.Subject', on_delete=models.CASCADE)
     student_assigned = models.ForeignKey(
-        'students.Student', on_delete=models.SET_NULL, null=True)
+        'students.Student', on_delete=models.CASCADE, null=True)
+    date_joined = models.DateTimeField(default=now, editable=False)
