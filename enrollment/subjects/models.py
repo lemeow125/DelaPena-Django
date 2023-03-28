@@ -11,7 +11,10 @@ class Subject(models.Model):
     date_added = models.DateTimeField(default=now, editable=False)
     date_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     professor_assigned = models.ManyToManyField(
-        'professor.Professor', through='subjects.SubjectProfessor')
+        'professor.Professor', related_name='SubjectProfessor_professor_assigned', through='subjects.SubjectProfessor')
+
+    students_assigned = models.ManyToManyField(
+        'students.Student', related_name='SubjectProfessor_professor_assigned', through='subjects.SubjectStudent')
 
     def __str__(self):
         return self.subject_name
@@ -21,3 +24,9 @@ class SubjectProfessor(models.Model):
     subject = models.ForeignKey('subjects.Subject', on_delete=models.CASCADE)
     professor_assigned = models.ForeignKey(
         'professor.Professor', on_delete=models.SET_NULL, null=True)
+
+
+class SubjectStudent(models.Model):
+    subject = models.ForeignKey('subjects.Subject', on_delete=models.CASCADE)
+    student_assigned = models.ForeignKey(
+        'students.Student', on_delete=models.SET_NULL, null=True)

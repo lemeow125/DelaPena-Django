@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Subject
 from professor.models import Professor
+from students.models import Student
 
 
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -10,8 +11,12 @@ class SubjectSerializer(serializers.HyperlinkedModelSerializer):
     professor_assigned = serializers.SlugRelatedField(
         queryset=Professor.objects.all(), many=True, slug_field='first_name', allow_null=True)
 
+    students_assigned = serializers.SlugRelatedField(
+        queryset=Student.objects.all(), many=True, slug_field='first_name', allow_null=True)
+
     class Meta:
         model = Subject
         fields = ('id', 'subject_name',
-                  'description', 'course_id', 'professor_assigned', 'date_added')
-        read_only_fields = ('id', 'date_added')
+                  'description', 'course_id', 'professor_assigned', 'date_added', 'students_assigned')
+        read_only_fields = ('id', 'date_added',
+                            'professor_assigned', 'students_assigned')
