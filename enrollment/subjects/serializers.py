@@ -19,7 +19,7 @@ class SubjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Subject
         fields = ('id', 'subject_name',
-                  'description', 'course_id', 'professors', 'date_added', 'students')
+                  'description', 'course_id', 'date_added', 'professors', 'students')
         read_only_fields = ('id', 'date_added',
                             'professors', 'students')
 
@@ -36,7 +36,7 @@ class SubjectProfessorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ('id', 'professor_assigned', 'subject', 'date_joined')
+        fields = ('id', 'subject', 'professor_assigned',  'date_joined')
         read_only_fields = ('id', 'professor_assigned',
                             'subject', 'date_joined')
 
@@ -53,6 +53,6 @@ class SubjectStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ('id', 'student_assigned', 'subject', 'date_joined')
+        fields = ('id', 'subject', 'student_assigned', 'date_joined')
         read_only_fields = ('id', 'professor_assigned',
                             'subject', 'date_joined')

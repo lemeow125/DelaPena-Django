@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.timezone import now
-from professor.models import Professor
 # Create your models here.
 
 

@@ -7,8 +7,4 @@ from .models import Student
 class StudentViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
     serializer_class = StudentSerializer
-    queryset = Student.objects.all()
-
-    def get_queryset(self):
-        queryset = Student.objects.all().order_by('date_joined')
-        return queryset
+    queryset = Student.objects.all().order_by('date_joined')
