@@ -1,5 +1,5 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets, views
+from rest_framework import viewsets
 from rest_framework import generics
 from .serializers import SubjectSerializer, SubjectProfessorSerializer, SubjectStudentSerializer
 from .models import Subject, SubjectProfessor, SubjectStudent
